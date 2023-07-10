@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ToDo App</title>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>ToDo App</h1>
+    <form action="/addTodo" method="POST">
+      <input type="text" class="todo-input" name="description" placeholder="Add a new task...">
+      <button type="submit">Add</button>
+    </form>
+    <ul class="todo-list">
+      {% for todo in todos %}
+        <li class="todo-item {% if todo.done %}done{% endif %}">
+            <input type="checkbox" name="done" id="doneCheckbox" {% if todo.done %}checked{% endif %}>
+            {{ todo.description }}
+            <form action="/update/{{ todo.id }}" method="POST" style="display: inline;">
+                <button type="submit">
+                    Update
+                </button>
+            </form>
+            <form action="/{{ todo.id }}" method="POST" style="display: inline;">
+                <button type="submit">
+                        Delete
+                </button>
+            </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
